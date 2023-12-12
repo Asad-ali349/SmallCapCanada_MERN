@@ -5,17 +5,19 @@ import Loader from "../Layout/Loader";
 
 
 import Signin from "../Auth/Signin";
+import ForgotPassword from "../Auth/forgotPassword";
 
 import AppLayout from '../Layout/Layout';
 import UsersProfileContain from '../Components/UsersProfile';
 import Dashboard from '../Components/Dashboard';
-import Password from '../Components/Password';
+// import Password from '../Components/Password';
 import TermOfUse from '../Components/TermsOfUse/Add';
 import Trade from '../Components/Trade';
 import PrivacyPolicy from '../Components/PrivacyPolicy';
 import Disclaimer from '../Components/disclaimer';
 import TodaysPick from '../Components/TodaysPick';
 import EditProfile from '../Components/UsersProfile/EditProfile/index.jsx';
+import ChangePassword from '../Components/changePassword/index.jsx'
 
 // setup fake backend
 
@@ -27,6 +29,7 @@ const Routers = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route  path={'/'} element={<Signin />} />
+          <Route  path={'/forgot_password'} element={<ForgotPassword />} />
           <Fragment >
             <Route element={<AppLayout />} >
               <Route  path={'/dashboard'} element={<Dashboard />} />
@@ -37,7 +40,7 @@ const Routers = () => {
               <Route  path={'/disclaimer'} element={<Disclaimer />} />
               <Route  path={'/profile'} element={<UsersProfileContain />} />
               <Route  path={'/edit_profile'} element={<EditProfile />} />
-              <Route  path={'/password'} element={<Password />} />
+              <Route  path={'/change_password'} element={<ChangePassword />} />
             </Route>
           </Fragment>
         </Routes>

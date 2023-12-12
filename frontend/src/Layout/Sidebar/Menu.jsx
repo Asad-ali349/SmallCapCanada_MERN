@@ -17,7 +17,7 @@ export const MENUITEMS = [
     menucontent: "Ready to use Apps",
     Items: [
       { path: '/profile', icon: "icofont-settings-alt", title: "Profile", type: "link" },
-
+      { path: '/change_password', icon: "icofont-settings-alt", title: "Change Password", type: "link" },
       { path: `${process.env.PUBLIC_URL}/`, icon: "icofont-ui-user", title: "Logout", type: "link" },
     
     ],

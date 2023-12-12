@@ -2,6 +2,7 @@ import React from 'react';
 import { Fragment } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import { P } from '../../AbstractElements';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
         <Container fluid={true}>
           <Row>
             <Col md="12" className="footer-copyright text-center">
-              <P attrPara={{ className: "mb-0" }}>{'Copyright 2022 © Cuba theme by pixelstrap.'}</P>
+              <P attrPara={{ className: "mb-0" }}>{'Copyright 2023 © Developed By'} <Link to={"http://qubitars.com/"} target='_blank'>Qubitars</Link></P>
             </Col>
           </Row>
         </Container>

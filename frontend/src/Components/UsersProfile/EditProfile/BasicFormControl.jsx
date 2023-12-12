@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState,useEffect } from 'react';
 import { Row, Col, Card, CardBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import { H5 ,Btn} from '../../../AbstractElements'
 import {CardHeader,CardFooter} from 'reactstrap';
@@ -8,9 +8,21 @@ import * as yup from 'yup';
 import { useFormik } from 'formik' ;
 // import { POSTFILE } from '../../../api/Axios';
 import { toast } from 'react-toastify';
+import {useDispatch,useSelector} from 'react-redux';
+import {fetchProfile} from '../../../Redux/Slices/authSlice.js'
 
 const BasicFormControlClass = () => {
-    const [loading,setLoading]=useState(false);
+    // const [loading,setLoading]=useState(false);
+    const {loading,profile}=useSelector(state=>state.auth);
+    const dispatch=useDispatch()
+
+    useEffect(()=>{
+      dispatch(fetchProfile());
+    },[])
+    useEffect(()=>{
+        formik.setValues({...profile,profile_image:""})
+    },[profile])
+    
     const validationSchema = yup.object({
         name: yup.string().required().min(2),
         email: yup.string().required('Please enter your email').email(),
@@ -34,17 +46,10 @@ const BasicFormControlClass = () => {
         validationSchema: validationSchema,
      
         onSubmit: async (values) => {
-                console.log('submit')
-                // setLoading(true)
-                // const response= await POSTFILE('/user',values,setLoading);
-                // console.log(values)
-                // if(response){
-                //     setLoading(false)
-                //     toast.success(response.data.message)
-                //     console.log(response)
-                // }
-                // formik.resetForm();
-            },
+            console.log('submit')
+            console.log(values)
+                
+        },
        });
     return (
         <Fragment>
@@ -63,7 +68,7 @@ const BasicFormControlClass = () => {
                                         <label htmlFor="fileInput" style={{ cursor: 'pointer',border:'1px solid #dee2e6',width:'100%',height:'40px',borderRadius:'5px',padding:'7px' }}>
                                         {/* Custom text for the file input */}
                                         Choose File: {formik.values[item.name]!=null ? formik.values[item.name].name: 'no file choosen'}
-                                        {console.log(formik.values[item.name])}
+                                        
                                         </label>
                                         <Input className="form-control" id="fileInput" style={{ display: 'none' }}  name={item.name} type={item.type} onChange= {(e) => formik.setFieldValue(item.name, e.currentTarget.files[0]) } />
                                     </>

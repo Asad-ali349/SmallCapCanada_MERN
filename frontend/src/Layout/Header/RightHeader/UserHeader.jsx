@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FileText, LogIn, Mail, User } from "react-feather";
 import man from "../../../assets/images/dashboard/profile.png";
-
+import sampleUserImage from '../../../assets/images/user/sample.png';
 import { LI, UL, Image, P } from "../../../AbstractElements";
 import CustomizerContext from "../../../_helper/Customizer";
 import { Account, Admin, Inbox, LogOut, Taskboard } from "../../../Constant";
@@ -39,18 +39,20 @@ const UserHeader = () => {
         <Image
           attrImage={{
             className: "b-r-10 m-0",
-            src: `${authenticated ? auth0_profile.picture : profile}`,
+            src: `${sampleUserImage}`,
             alt: "",
+            style:{width:'40px',height:'40px'}
           }}
         />
         <div className="media-body">
-          <span>{authenticated ? auth0_profile.name : name}</span>
+          <span>{'Welcome'}</span>
           <P attrPara={{ className: "mb-0 font-roboto" }}>
-            {Admin} <i className="middle fa fa-angle-down"></i>
+            {Admin} 
+            {/* <i className="middle fa fa-angle-down"></i> */}
           </P>
         </div>
       </div>
-      <UL attrUL={{ className: "simple-list profile-dropdown onhover-show-div" }}>
+      {/* <UL attrUL={{ className: "simple-list profile-dropdown onhover-show-div" }}>
         <LI
           attrLI={{
             onClick: () => UserMenuRedirect(`${process.env.PUBLIC_URL}/app/users/profile/${layoutURL}`),
@@ -76,7 +78,7 @@ const UserHeader = () => {
           <LogIn />
           <span>{LogOut}</span>
         </LI>
-      </UL>
+      </UL> */}
     </li>
   );
 };

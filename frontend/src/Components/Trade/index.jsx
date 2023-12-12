@@ -1,36 +1,55 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Container, Row } from 'reactstrap';
 import { Breadcrumbs } from '../../AbstractElements';
 import {CardHeader,CardFooter} from 'reactstrap';
 import { Col, Card, CardBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import { H5 ,Btn} from '../../AbstractElements';
 import TextEditor from '../../CommonElements/TextEditor'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTrade, updateTrade } from '../../Redux/Slices/tradeSlice.js';
 const Index = () => {
-  const [content, setContent]=useState();
+  const dispatch=useDispatch();
+  const {loading,submitting,tradeText} = useSelector(state=>state.trade);
+  const [content, setContent]=useState("");
+  
+  useEffect(() => {
+    dispatch(fetchTrade());
+  }, []);
+  
+  useEffect(() => {
+   setContent(tradeText.text);
+  }, [tradeText.text]);
+
   const handleProcedureContentChange = () => {
-    console.log("content:", content);
+    dispatch(updateTrade({id:tradeText._id,text:content}));
   };
+
   return (
     <Fragment>
-      <Breadcrumbs mainTitle='How To Trade' parent='How To Trade' />
+      <Breadcrumbs mainTitle='How to Trade' parent='How to Trade' />
       <Container fluid={true}>
         <Row>
           <Col sm='12'>
           <Card>
-            <CardHeader ><H5>How To Trade</H5></CardHeader>
-                <Form className="form theme-form">
-                    <CardBody>
-                        <Row className='mb-3'>
-                          <Col sm='12'>
-                            <TextEditor value={content} onChange={(e)=>setContent(e)}/>
-                          </Col>
-                        </Row>
-                    </CardBody>
-                    <CardFooter className="text-end">
-                      <button type='button' className='btn btn-primary mx-1' onClick={handleProcedureContentChange}>Save</button>
-                      <button className='btn btn-primary mx-1' type='button'>Clear</button>
-                    </CardFooter>
-                </Form>
+            <CardHeader><H5>How to Trade</H5></CardHeader>
+                {
+                  loading && content?
+                  ("loading....."):
+                  (<Form className="form theme-form">
+                      <CardBody>
+                          <Row className='mb-3'>
+                            <Col sm='12'>
+                              <TextEditor value={content} onChange={(e)=>setContent(e)}/>
+                            </Col>
+                          </Row>
+                      </CardBody>
+                      <CardFooter className="text-end">
+                        <button type='button' className='btn btn-primary mx-1' onClick={handleProcedureContentChange} disabled={submitting} >{submitting?'saving..': 'Save'}</button>
+                        <button className='btn btn-primary mx-1' type='button'>Clear</button>
+                      </CardFooter>
+                  </Form>)
+                
+                }
             </Card>
           </Col>
         </Row>

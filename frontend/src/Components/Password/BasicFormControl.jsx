@@ -9,7 +9,7 @@ const BasicFormControlClass = () => {
     return (
         <Fragment>
             <Card>
-            <CardHeader > <H5>home</H5>   </CardHeader>
+            <CardHeader > <H5>Change Password</H5>   </CardHeader>
                 <Form className="form theme-form">
                     <CardBody>
                         <Row className='mb-3'>
