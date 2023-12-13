@@ -61,7 +61,7 @@ export const GET = async (url) => {
   }
 };
 
-export const UPDATE = async (url,data,) => {
+export const UPDATE = async (url,data) => {
   try {
     const response = await API.patch(url, data);
     return response;

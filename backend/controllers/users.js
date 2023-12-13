@@ -24,10 +24,10 @@ const addUserSchema = Joi.object({
 const updateUserSchema = Joi.object({
     name: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
-    phone: Joi.string().required(),
     address: Joi.string().allow(null),
-    role:Joi.string().required(),
-    zip: Joi.string().allow(null).optional(),
+    role:Joi.string(),
+    zip: Joi.string().allow("").optional(),
+    phone: Joi.string().allow("").optional(),
 }).unknown();
 
 
@@ -133,6 +133,7 @@ export const UpdateProfile=async(req, res)=>{
         const { error, value } = updateUserSchema.validate(req.body);
         if (error) {
             // Return a 400 Bad Request response if validation fails
+            console.log("ERROR")
             return res.status(400).json({ message: error.details[0].message });
         }
 
@@ -171,7 +172,7 @@ export const UpdateProfile=async(req, res)=>{
             }
         );
 
-        return res.status(200).json({ message:"User Profile updated successfully..."});
+        return res.status(200).json(updatedUser);
 
     }catch(error){  
         // If an error occurs during the process, return a 500 status with the error message

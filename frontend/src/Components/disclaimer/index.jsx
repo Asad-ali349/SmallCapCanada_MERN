@@ -4,7 +4,7 @@ import { Breadcrumbs } from '../../AbstractElements';
 import {CardHeader,CardFooter} from 'reactstrap';
 import { Col, Card, CardBody, Form, FormGroup, Label, Input } from 'reactstrap';
 import { H5 ,Btn} from '../../AbstractElements';
-import TextEditor from '../../CommonElements/TextEditor'
+import TextEditor from '../../CommonElements/TextEditor';
 import { useDispatch, useSelector } from 'react-redux';
 import {fetchDisclaimer, updateDisclaimer} from '../../Redux/Slices/disclaimer.js';
 const Index = () => {

@@ -1,42 +1,23 @@
-import React, { Fragment, useState, useEffect, useContext } from "react";
+import React, { Fragment, useState} from "react";
 import { Col, Container, Form, FormGroup, Input, Label, Row } from "reactstrap";
-import { Btn, H3, H4, H5, P } from "../../AbstractElements";
-import { EmailAddress, ForgotPassword, Password, RememberPassword, SignIn } from "../../Constant";
-
+import { H5,} from "../../AbstractElements";
+import { EmailAddress } from "../../Constant";
 import { Link, useNavigate } from "react-router-dom";
-import man from "../../assets/images/dashboard/profile.png";
-
-import CustomizerContext from "../../_helper/Customizer";
-
 import { ToastContainer, toast } from "react-toastify";
 import { Image } from '../../AbstractElements';
+import {useDispatch, useSelector} from 'react-redux';
+import { forgotPassword } from "../../Redux/Slices/authSlice";
 
 const Signin = ({ selected }) => {
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("test123");
-  const [togglePassword, setTogglePassword] = useState(false);
+  const [email, setEmail] = useState("");
   const history = useNavigate();
-  const { layoutURL } = useContext(CustomizerContext);
-
-  const [value, setValue] = useState(localStorage.getItem("profileURL" || man));
-  const [name, setName] = useState(localStorage.getItem("Name"));
-
-  useEffect(() => {
-    localStorage.setItem("profileURL", man);
-    localStorage.setItem("Name", "Emay Walter");
-  }, [value, name]);
+  const {loading}=useSelector(state=>state.auth);
+  const dispatch = useDispatch();
 
   const loginAuth = async (e) => {
     e.preventDefault();
-    setValue(man);
-    setName("Emay Walter");
-    if (email === "test@gmail.com" && password === "test123") {
-      localStorage.setItem("login", JSON.stringify(true));
-      history(`${process.env.PUBLIC_URL}/dashboard`);
-      toast.success("Successfully logged in!..");
-    } else {
-      toast.error("You enter wrong password or username!..");
-    }
+    console.log(email)
+    dispatch(forgotPassword({email}))
   };
 
   return (
@@ -46,18 +27,18 @@ const Signin = ({ selected }) => {
           <Col xs="12">
             <div className="login-card">
               <div className="login-main login-tab">
-                <Form className="theme-form">
+                <Form className="theme-form" onSubmit={loginAuth}>
                     <div className="mb-4"><Image  attrImage={{ className: 'img-fluid d-inline', src: `${require('../../assets/Logo/logo.png')}`, style:{width:"50%"}}} /></div>
 
                     <H5>{"Recover Your Account With Email"}</H5>
                     <FormGroup>
                         <Label className="col-form-label">{EmailAddress}</Label>
-                        <Input className="form-control" type="email" onChange={(e) => setEmail(e.target.value)} value={email} />
+                        <Input className="form-control" type="email" onChange={(e) => setEmail(e.target.value)} placeholder="test@gmail.com" value={email} required={true}/>
                     </FormGroup>
                     
                     <div className="position-relative form-group mb-0">
                         
-                        <Btn attrBtn={{ color: "primary", className: "d-block w-100 mt-2", onClick: (e) => loginAuth(e) }}>{"Recover"}</Btn>
+                        <button className="btn btn-primary w-100" disabled={loading}>{loading?"Recovering...":"Recover"}</button>
                     </div>
                   
                     <p className="mt-3 mb-0 text-center">Back to <Link to={"/"}>Signin</Link></p>

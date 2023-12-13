@@ -9,7 +9,7 @@ import { useFormik } from 'formik' ;
 // import { POSTFILE } from '../../../api/Axios';
 import { toast } from 'react-toastify';
 import {useDispatch,useSelector} from 'react-redux';
-import {fetchProfile} from '../../../Redux/Slices/authSlice.js'
+import {fetchProfile, updateProfile} from '../../../Redux/Slices/authSlice.js'
 
 const BasicFormControlClass = () => {
     // const [loading,setLoading]=useState(false);
@@ -26,10 +26,10 @@ const BasicFormControlClass = () => {
     const validationSchema = yup.object({
         name: yup.string().required().min(2),
         email: yup.string().required('Please enter your email').email(),
-        phone : yup.string().required(),
-        street : yup.string().required(),
-        city: yup.string().required(),
-        zip: yup.number().required(),
+        phone : yup.string(),
+        street : yup.string(),
+        city: yup.string(),
+        zip: yup.number(),
     });
 
     const formik = useFormik({
@@ -47,8 +47,7 @@ const BasicFormControlClass = () => {
      
         onSubmit: async (values) => {
             console.log('submit')
-            console.log(values)
-                
+            dispatch(updateProfile(values));
         },
        });
     return (

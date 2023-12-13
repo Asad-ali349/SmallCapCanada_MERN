@@ -31,7 +31,13 @@ const UserProfile = () => {
              <CardHeader className='cardheader'></CardHeader>
              <div className='user-image'>
                <div className='avatar'>
-                 <Image attrImage={{ className: 'step1', alt: '', src: `${url ? url : require('../../assets/images/user/sample.png')}` }} />
+                {
+                  profile.profile!="" && profile.profile_image.url?(
+                    <Image attrImage={{ className: 'step1', alt: '', src: `${profile.profile_image.url}` }} />
+                  ):(
+                    <Image attrImage={{ className: 'step1', alt: '', src: `${url ? url : require('../../assets/images/user/sample.png')}` }} />
+                  )
+                }
                </div>
                <div className='icon-wrapper step2' onClick={() => navigate("/edit_profile")}>
                  <i className='icofont icofont-pencil-alt-5' >

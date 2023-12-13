@@ -18,11 +18,11 @@ import Disclaimer from '../Components/disclaimer';
 import TodaysPick from '../Components/TodaysPick';
 import EditProfile from '../Components/UsersProfile/EditProfile/index.jsx';
 import ChangePassword from '../Components/changePassword/index.jsx'
+import ResetPassword from '../Auth/resetPassword/index.jsx'
 
 // setup fake backend
 
 const Routers = () => {
-
 
   return (
     <BrowserRouter basename={"/"}>
@@ -30,14 +30,15 @@ const Routers = () => {
         <Routes>
           <Route  path={'/'} element={<Signin />} />
           <Route  path={'/forgot_password'} element={<ForgotPassword />} />
+          <Route  path={'/reset_password/:token'} element={<ResetPassword />} />
           <Fragment >
             <Route element={<AppLayout />} >
               <Route  path={'/dashboard'} element={<Dashboard />} />
               <Route  path={'/todays_pick'} element={<TodaysPick />} />
               <Route  path={'/terms_of_use'} element={<TermOfUse />} />
               <Route  path={'/how_to_trade'} element={<Trade />} />
-              <Route  path={'/privacy_policy'} element={<PrivacyPolicy />} />
-              <Route  path={'/disclaimer'} element={<Disclaimer />} />
+              <Route  path={'/privacy_policy'} element={<PrivacyPolicy/>} />
+              <Route  path={'/disclaimer'} element={<Disclaimer/>} />
               <Route  path={'/profile'} element={<UsersProfileContain />} />
               <Route  path={'/edit_profile'} element={<EditProfile />} />
               <Route  path={'/change_password'} element={<ChangePassword />} />
