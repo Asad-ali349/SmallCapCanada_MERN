@@ -62,7 +62,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 //   next();
 // });
 
-app.use(cors({ origin: 'https://smallcapcanada.vercel.app/',methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], }));
+app.use(cors({ origin: 'https://smallcapcanada.vercel.app',methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], }));
 // app.use(cors());
 
 //Defining Port on which our page is load.
