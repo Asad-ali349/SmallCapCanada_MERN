@@ -127,7 +127,6 @@ export const GetUserDetail=async(req, res)=>{
 export const UpdateProfile=async(req, res)=>{
     const {user_id}=req;
     const user=req.body;
-    console.log(user,req.file)
     try{
         
         const { error, value } = updateUserSchema.validate(req.body);
@@ -237,21 +236,24 @@ export const DeleteUser= async (req,res)=>{
 }
 
 export const ChangePassword = async (req,res) => {
-    const {user_id}=req.params;
+    
+    const {user_id}=req;
+    
     const {old_password,new_password}=req.body;
     try{
         const user=await Users.findOne({_id:user_id});
         if(!user)
             return res.status(400).json({message: "User Not Found..."});
 
-        let matchPasswrod= await bcrypt.compare(user.password,old_password);
+        let matchPasswrod= await bcrypt.compare(old_password,user.password);
+        
         if(!matchPasswrod)
             return res.status(400).json({message: "Incorrect Old Password..."});
 
 
         const password = await bcrypt.hash(new_password, 10);
         const updatedUser= await Users.findByIdAndUpdate(
-            id,
+            user_id,
             {password},
             {
                 new:true
@@ -266,6 +268,8 @@ export const ChangePassword = async (req,res) => {
         res.status(500).json({message:error})
     }
 }
+
+
 
 const removeTmp = (path) =>{
     fs.unlink(path, err=>{

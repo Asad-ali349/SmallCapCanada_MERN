@@ -7,6 +7,7 @@ const PROFILE = 'profile';
 const UPDATEPROFILE = 'updateprofile';
 const FORGOTPASSWORD = 'forgotpassword';
 const RESETPASSWORD = 'resetpassword';
+const CHANGEPASSWORD = 'changepassword';
 
 
 export const login = createAsyncThunk(LOGIN, async (data) => {
@@ -35,12 +36,27 @@ export const forgotPassword = createAsyncThunk(FORGOTPASSWORD, async (data) => {
 
 export const resetPassword = createAsyncThunk(RESETPASSWORD, async (data) => {
   try {
-    console.log(data)
+    
     if(data.password.password!=data.password.confirm_password){
       toast.error("New Password and Confirm must be same")
       throw "New Password and Confirm must be same";
     }
     const response = await UPDATE(`auth/reset_password/${data.token}`,data.password);
+    toast.success("Passsword Updated Sucessfully...");
+    return response.data;
+  } catch (error) {
+    // console.error('Error fetching disclaimer:', error);
+    toast.error(error)
+    throw error;
+  }
+});
+export const changePassword = createAsyncThunk(CHANGEPASSWORD, async (data) => {
+  try {
+    if(data.new_password!=data.confirm_password){
+      toast.error("New Password and Confirm must be same");
+      throw "New Password and Confirm must be same";
+    }
+    const response = await UPDATE(`user/change_password`,data);
     toast.success("Passsword Updated Sucessfully...");
     return response.data;
   } catch (error) {
@@ -137,6 +153,16 @@ const AuthSlice = createSlice({
         state.loading = true;
       })
       .addCase(resetPassword.rejected, (state) => {
+        state.loading = false;
+      })
+      // ---------------change_password------------------
+      .addCase(changePassword.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(changePassword.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(changePassword.rejected, (state) => {
         state.loading = false;
       })
   },

@@ -67,7 +67,7 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
                     activeClass(menuItem.active);
                   }}>
                   
-                   <i className= {`icofont  ${menuItem.icon}`  } style={{fontSize : '18px'}}></i> &nbsp; 
+                   <i className= {`icofont  ${menuItem.icon}`} style={{fontSize : '18px'}}></i> &nbsp; 
                   <span>{(menuItem.title)}</span>
                   {menuItem.badge ? <label className={menuItem.badge}>{menuItem.badgetxt}</label> : ""}
                   <div className="according-menu">{menuItem.active ? <i className="fa fa-angle-down"></i> : <i className="fa fa-angle-right"></i>}</div>
@@ -77,7 +77,7 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
               )}
 
               {menuItem.type === "link" ? (
-                <Link to={menuItem.path } className={`sidebar-link sidebar-title link-nav  ${CurrentPath.includes(menuItem.title.toLowerCase()) ? "active" : ""}`} onClick={() => toggletNavActive(menuItem)}>
+                <Link to={menuItem.path } className={`sidebar-link sidebar-title link-nav  ${CurrentPath.includes(menuItem.id.toLowerCase()) ? "active" : ""}`} onClick={() => toggletNavActive(menuItem)}>
                
                  <i className= {`icofont  ${menuItem.icon}`  } style={{fontSize : '18px'}}></i> &nbsp; 
                   <span>{(menuItem.title)}</span>
@@ -88,7 +88,7 @@ const SidebarMenuItems = ({ setMainMenu, sidebartoogle, setNavActive, activeClas
               )}
 
               {menuItem.children ? (
-                <ul className="sidebar-submenu" style={layout1 !== "compact-sidebar compact-small" ? (menuItem?.active || CurrentPath.includes(menuItem?.title?.toLowerCase()) ? (sidebartoogle ? { opacity: 1, transition: "opacity 500ms ease-in" } : { display: "block" }) : { display: "none" }) : { display: "none" }}>
+                <ul className="sidebar-submenu" style={layout1 !== "compact-sidebar compact-small" ? (menuItem?.active || CurrentPath.includes(menuItem?.id?.toLowerCase()) ? (sidebartoogle ? { opacity: 1, transition: "opacity 500ms ease-in" } : { display: "block" }) : { display: "none" }) : { display: "none" }}>
                   {menuItem.children.map((childrenItem, index) => {
                     return (
                       <li key={index}>

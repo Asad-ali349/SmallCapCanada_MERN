@@ -22,7 +22,8 @@ export const Signin = async (req, res)=>{
         const user=await Users.findOne({email});
         if(!user)
             return res.status(404).json({message:"User Not Found"});
-          const passwordMatched =await bcrypt.compare(password,user.password);
+        
+        const passwordMatched =await bcrypt.compare(password,user.password);
         
         
         if(!passwordMatched)

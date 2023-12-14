@@ -8,9 +8,12 @@ import * as yup from 'yup';
 import { useFormik } from 'formik' ;
 // import { POSTFILE } from '../../../api/Axios';
 import { toast } from 'react-toastify';
+import {useSelector,useDispatch} from 'react-redux';
+import { changePassword } from '../../Redux/Slices/authSlice';
 
 const BasicFormControlClass = () => {
-    const [loading,setLoading]=useState(false);
+    const {loading}=useSelector(state=>state.auth);
+    const dispatch=useDispatch()
     const validationSchema = yup.object({
         old_password: yup.string().required().min(8),
         new_password: yup.string().required().min(8),
@@ -27,21 +30,17 @@ const BasicFormControlClass = () => {
      
         onSubmit: async (values) => {
                 console.log('submit')
-                // setLoading(true)
-                // const response= await POSTFILE('/user',values,setLoading);
-                // console.log(values)
-                // if(response){
-                //     setLoading(false)
-                //     toast.success(response.data.message)
-                //     console.log(response)
-                // }
+                console.log(values)
+                dispatch(changePassword(values)).then(()=>{
+                    formik.resetForm();
+                });
                 // formik.resetForm();
             },
        });
     return (
         <Fragment>
             <Card>
-            <CardHeader><H5>Edit Profile</H5></CardHeader>
+            <CardHeader><H5>Change Password</H5></CardHeader>
                 <Form className="form theme-form" onSubmit={formik.handleSubmit} method='post'>
                     <CardBody>
                         <Row className='mb-3'>

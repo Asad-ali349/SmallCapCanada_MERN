@@ -31,7 +31,7 @@ export const CreateText= async (req,res)=>{
 }
 
 export const PrivacyTextDetail= async (req,res)=>{
-    console.log("SSSSSS")
+    
     try{
         let PrivacyTextDetail= await PrivacyText.findOne();
 

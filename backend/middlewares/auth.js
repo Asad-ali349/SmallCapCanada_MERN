@@ -10,9 +10,10 @@ const auth= async (req,res,next)=>{
                 message: "Unauthorized User"
             });
         }
- 
+        
         let DecodedData= jwt.verify(authorization,"Signin");
         req.user_id=DecodedData?.id;
+        
         next();
         
     }catch(error){  

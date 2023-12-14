@@ -6,7 +6,8 @@ import {
     DeleteUser,
     GetUserDetail,
     GetProfile,
-    UpdateProfile
+    UpdateProfile,
+    ChangePassword
 } from '../controllers/users.js';
 import auth from '../middlewares/auth.js';
 import multer from 'multer';
@@ -32,8 +33,8 @@ router.get('/',auth,GetUsers);
 router.get('/profile',auth,GetProfile);
 router.patch('/profile',uploadfile,auth,UpdateProfile);
 router.get('/:id',auth,GetUserDetail);
-router.patch('/:id',uploadfile,auth,UpdateUsers);
+// router.patch('/:id',uploadfile,auth,UpdateUsers);
 router.delete('/:id',auth,DeleteUser);
-
+router.patch('/change_password',auth,ChangePassword);
 
 export default router;
