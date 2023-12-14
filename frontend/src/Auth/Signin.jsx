@@ -45,12 +45,12 @@ const Signin = ({ selected }) => {
                   <P>{"Enter your email & password to login"}</P>
                   <FormGroup>
                     <Label className="col-form-label">{EmailAddress}</Label>
-                    <Input className="form-control" type="email" onChange={(e) => setEmail(e.target.value)} value={email} required={true}/>
+                    <Input className="form-control" type="email" onChange={(e) => setEmail(e.target.value)} value={email} required={true} placeholder="test@example.com"/>
                   </FormGroup>
                   <FormGroup className="position-relative">
                     <Label className="col-form-label">{Password}</Label>
                     <div className="position-relative">
-                      <Input className="form-control" type={togglePassword ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} value={password} required={true} minLength={8}/>
+                      <Input className="form-control" type={togglePassword ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} value={password} required={true} minLength={8} placeholder="*************"/>
                       <div className="show-hide" onClick={() => setTogglePassword(!togglePassword)}>
                         <span className={togglePassword ? "" : "show"}></span>
                       </div>
