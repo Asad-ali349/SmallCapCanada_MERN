@@ -15,6 +15,7 @@ const PageNotFound = ({ selected }) => {
             <div style={{display:'flex',justifyContent:"center",alignItems:'center',height:'100vh'}}>
                 <div style={{width:'400px'}}>
                     <Lottie animationData={NotFound} loop={true}  style={{width:'100%'}}/>
+                    <h3 className="text-center">Page Not Found</h3>
                 </div>
             </div>
             
