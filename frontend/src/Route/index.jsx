@@ -19,6 +19,7 @@ import TodaysPick from '../Components/TodaysPick';
 import EditProfile from '../Components/UsersProfile/EditProfile/index.jsx';
 import ChangePassword from '../Components/changePassword/index.jsx'
 import ResetPassword from '../Auth/resetPassword/index.jsx'
+import PageNotFound from '../Auth/PageNotFound/index.jsx';
 
 // setup fake backend
 
@@ -28,6 +29,7 @@ const Routers = () => {
     <BrowserRouter basename={"/"}>
       <Suspense fallback={<Loader />}>
         <Routes>
+          <Route path="*" element={<PageNotFound/>} />
           <Route  path={'/'} element={<Signin />} />
           <Route  path={'/forgot_password'} element={<ForgotPassword />} />
           <Route  path={'/reset_password/:token'} element={<ResetPassword />} />

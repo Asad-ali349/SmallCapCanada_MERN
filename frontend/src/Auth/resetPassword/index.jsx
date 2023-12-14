@@ -4,7 +4,8 @@ import { Btn, H4, P, Image } from '../../AbstractElements';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from '../../Redux/Slices/authSlice';
-import { toast } from "react-toastify";
+
+import { ToastContainer, toast } from "react-toastify";
 
 const UnlockUser = ({ logoClassMain }) => {
   const { token } = useParams();
@@ -16,29 +17,11 @@ const UnlockUser = ({ logoClassMain }) => {
   const [toggleChangePassword, setToggleChangePassword] = useState(false);
   const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const [error,setError]=useState(null);
-  const [success,setSuccess]=useState(null);
+ 
 
   const handleSend = async (e) => {
     e.preventDefault();
-    console.log('submitted')
-    toast.success('submitted')
-    dispatch(resetPassword({ token, password: changePassword })).then((response) => {
-        console.log(response);
-        if(response.type==="resetpassword/rejected"){
-            setSuccess(null);
-            setError("Error: "+response.error.message);
-        }
-        if(response.type==="resetpassword/fulfilled"){
-            setError(null);
-            setSuccess("Success: "+response.payload.message);
-            setChangePassword({
-                password: '',
-                confirm_password: '',
-              });
-        }
-        toast.success('Password reset completed!');
-    });
+    dispatch(resetPassword({ token, password: changePassword }));
   };
 
   return (
@@ -98,10 +81,7 @@ const UnlockUser = ({ logoClassMain }) => {
                           </div>
                         </div>
                       </FormGroup>
-                      <FormGroup>
-                            <p style={{color:'red',fontSize:'13px'}}>{error!=null?error:''}</p>
-                            <p style={{color:'green',fontSize:'13px'}}>{success!=null?success:''}</p>
-                        </FormGroup>
+                      
                       <FormGroup>
                         <button className="btn btn-primary w-100" disabled={loading}>
                           {loading ? 'Updating...' : 'Update Password'}
@@ -121,6 +101,7 @@ const UnlockUser = ({ logoClassMain }) => {
           </Row>
         </Container>
       </section>
+      <ToastContainer />
     </Fragment>
   );
 };
